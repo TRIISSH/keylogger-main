@@ -6,8 +6,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import { API } from '@/config';
 
 export default function Logs() {
   const [keystrokes, setKeystrokes] = useState([]);
@@ -41,7 +40,7 @@ export default function Logs() {
   useEffect(() => {
     fetchKeystrokes(selectedSession === 'all' ? null : selectedSession);
     fetchSessions();
-    
+
     const interval = setInterval(() => {
       fetchKeystrokes(selectedSession === 'all' ? null : selectedSession, false);
     }, 5000);
@@ -51,7 +50,7 @@ export default function Logs() {
 
   const handleClearAll = async () => {
     if (!window.confirm('Are you sure you want to delete all logs?')) return;
-    
+
     try {
       await axios.delete(`${API}/keystrokes`);
       setKeystrokes([]);
@@ -64,10 +63,10 @@ export default function Logs() {
   };
 
   const handleExport = () => {
-    const data = keystrokes.map(k => 
+    const data = keystrokes.map(k =>
       `${k.timestamp} | ${k.key} | ${k.code} | ${k.key_code}`
     ).join('\n');
-    
+
     const blob = new Blob([data], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

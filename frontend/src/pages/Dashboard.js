@@ -5,8 +5,7 @@ import StatsCard from '@/components/StatsCard';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import { API } from '@/config';
 
 export default function Dashboard() {
   const [stats, setStats] = useState({

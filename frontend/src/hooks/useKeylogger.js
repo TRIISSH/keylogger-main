@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+import { API } from '../config';
 
 export function useKeylogger(sessionId) {
   const [isActive, setIsActive] = useState(false);
@@ -13,7 +12,7 @@ export function useKeylogger(sessionId) {
     sessionDuration: 0,
     wpm: 0,
   });
-  
+
   const startTimeRef = useRef(null);
   const bufferTimerRef = useRef(null);
 
@@ -77,7 +76,7 @@ export function useKeylogger(sessionId) {
 
     setKeystrokes(prev => [newKeystroke, ...prev]);
     setBuffer(prev => [...prev, newKeystroke]);
-    
+
     // Log to backend
     logKeystroke(keystrokeData);
 
@@ -127,7 +126,7 @@ export function useKeylogger(sessionId) {
           const minutes = duration / 60;
           const words = prev.totalKeys / 5; // Average 5 characters per word
           const wpm = minutes > 0 ? Math.round(words / minutes) : 0;
-          
+
           return {
             ...prev,
             sessionDuration: duration,
