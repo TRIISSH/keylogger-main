@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+python-dotenv
+motor
+pydantic
+requests
+email-validator
+httpx
+pytest
