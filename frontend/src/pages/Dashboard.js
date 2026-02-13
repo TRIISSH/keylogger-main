@@ -5,7 +5,7 @@ import StatsCard from '@/components/StatsCard';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
 
-import { API } from '@/config';
+import { API } from '../config';
 
 export default function Dashboard() {
   const [stats, setStats] = useState({

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { toast } from 'sonner';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
-import { API } from '@/config';
+import { API } from '../config';
 
 export default function Logs() {
   const [keystrokes, setKeystrokes] = useState([]);
