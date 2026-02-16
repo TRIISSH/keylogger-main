@@ -33,7 +33,6 @@ export default function Simulator() {
         description: 'Keystroke capture paused',
       });
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 
   const handleStart = () => {
@@ -72,24 +71,25 @@ export default function Simulator() {
   };
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="p-8 space-y-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between border-b border-primary/20 pb-6">
         <div>
-          <h1 className="text-3xl font-secondary font-bold uppercase tracking-tight text-foreground">
-            Live Simulator
+          <h1 className="text-3xl font-display font-bold uppercase tracking-tight text-foreground flex items-center gap-3">
+            <span className="text-primary text-glow">●</span> Live Simulator
           </h1>
-          <p className="text-sm text-muted-foreground mt-1">
-            Session ID: <span className="font-mono text-primary">{sessionId}</span>
+          <p className="text-sm text-muted-foreground mt-1 font-mono">
+            Session ID: <span className="text-primary">{sessionId}</span>
           </p>
         </div>
         <div className="flex gap-3">
           {!isActive ? (
             <Button
               onClick={handleStart}
-              className="glow-primary"
               size="lg"
               data-testid="start-capture-btn"
+              variant="tech"
+              className="font-bold"
             >
               <Play className="mr-2 h-5 w-5" />
               Start Capture
@@ -100,6 +100,7 @@ export default function Simulator() {
               variant="destructive"
               size="lg"
               data-testid="stop-capture-btn"
+              className="shadow-[0_0_15px_rgba(255,0,85,0.4)] animate-pulse"
             >
               <Square className="mr-2 h-5 w-5" />
               Stop Capture
@@ -111,6 +112,7 @@ export default function Simulator() {
             size="lg"
             disabled={keystrokes.length === 0}
             data-testid="clear-logs-btn"
+            className="font-mono text-xs uppercase"
           >
             <Trash2 className="mr-2 h-5 w-5" />
             Clear
@@ -121,6 +123,7 @@ export default function Simulator() {
             size="lg"
             disabled={keystrokes.length === 0}
             data-testid="export-logs-btn"
+            className="font-mono text-xs uppercase"
           >
             <Download className="mr-2 h-5 w-5" />
             Export
@@ -133,17 +136,20 @@ export default function Simulator() {
         <StatsCard
           title="Keys Captured"
           value={stats.totalKeys}
-          subtitle="This session"
+          subtitle="Current Session"
+          className="border-primary/20"
         />
         <StatsCard
           title="Session Duration"
           value={formatDuration(stats.sessionDuration)}
-          subtitle="Active time"
+          subtitle="Active Timer"
+          className="border-primary/20"
         />
         <StatsCard
           title="Typing Speed"
           value={`${stats.wpm} WPM`}
-          subtitle="Words per minute"
+          subtitle="Estimated Rate"
+          className="border-primary/20"
         />
       </div>
 
@@ -151,35 +157,38 @@ export default function Simulator() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           {/* Input Area */}
-          <div className="p-6 bg-card border border-border rounded-sm">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-sm font-secondary font-bold uppercase tracking-tight text-foreground">
-                Target Input Area
-              </h3>
-              {isActive && (
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-destructive rounded-full animate-pulse" />
-                  <span className="text-xs font-mono text-destructive">RECORDING</span>
-                </div>
-              )}
+          <div className="p-1 bg-gradient-to-br from-primary/30 to-transparent rounded-sm">
+            <div className="p-6 bg-black/80 backdrop-blur-md border border-primary/20 relative">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-sm font-secondary font-bold uppercase tracking-wide text-foreground flex items-center gap-2">
+                  <span className="w-2 h-2 bg-primary rounded-full" />
+                  Target Input Area
+                </h3>
+                {isActive && (
+                  <div className="flex items-center gap-2 px-2 py-1 bg-destructive/10 border border-destructive/20 rounded-sm">
+                    <div className="w-2 h-2 bg-destructive rounded-full animate-ping" />
+                    <span className="text-[10px] font-mono text-destructive font-bold tracking-widest">RECORDING</span>
+                  </div>
+                )}
+              </div>
+              <Textarea
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder=">> Initialize typing sequence... Log capture pending..."
+                className="min-h-[200px] font-mono text-base bg-black border-primary/30 focus:border-primary focus:ring-1 focus:ring-primary/50 text-foreground placeholder:text-muted-foreground/50 rounded-none resize-none"
+                data-testid="simulator-input"
+              />
+              <p className="text-xs text-muted-foreground mt-3 font-mono border-l-2 border-primary/30 pl-3">
+                [INFO] Simulates application input field interception. All keystrokes logged to buffer.
+              </p>
             </div>
-            <Textarea
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Type here to simulate keystroke capture... All keys will be logged."
-              className="min-h-[200px] font-mono text-base bg-background border-zinc-700 focus:ring-primary"
-              data-testid="simulator-input"
-            />
-            <p className="text-xs text-muted-foreground mt-3">
-              🔒 In a real keylogger, this could be any application - your browser, email client, or password manager.
-            </p>
           </div>
 
           {/* Live Log View */}
-          <div className="p-6 bg-card border border-border rounded-sm">
+          <div className="glass-panel p-6 rounded-sm">
             <h3 className="text-sm font-secondary font-bold uppercase tracking-tight text-foreground mb-4">
-              Live Keystroke Log
+              Real-time Interception Log
             </h3>
             <LogViewer keystrokes={keystrokes} maxHeight="400px" />
           </div>
@@ -190,19 +199,25 @@ export default function Simulator() {
           <ExfiltrationIndicator buffer={buffer} isActive={isActive} />
 
           {/* Info Panel */}
-          <div className="p-6 bg-card border border-border rounded-sm">
-            <h3 className="text-sm font-secondary font-bold uppercase tracking-tight text-foreground mb-4">
-              💡 Did You Know?
+          <div className="p-6 bg-secondary/5 border border-secondary/20 rounded-sm relative overflow-hidden">
+            <div className="absolute top-0 right-0 p-4 opacity-10">
+              <Square className="h-16 w-16 text-secondary" />
+            </div>
+            <h3 className="text-sm font-secondary font-bold uppercase tracking-tight text-foreground mb-4 flex items-center gap-2">
+              <span className="text-secondary text-lg">ⓘ</span> Intel Brief
             </h3>
-            <div className="space-y-3 text-sm text-muted-foreground">
+            <div className="space-y-3 text-sm text-muted-foreground font-mono">
               <p>
-                <strong className="text-foreground">Passwords are vulnerable:</strong> Even with masked input fields (*****), keyloggers capture the actual keys pressed.
+                <strong className="text-secondary-foreground">&gt;&gt; Password Vulnerability:</strong>
+                <br />Keyloggers capture raw input before UI masking (*****) occurs.
               </p>
               <p>
-                <strong className="text-foreground">Stealth operation:</strong> Real keyloggers run silently without visible windows or high CPU usage.
+                <strong className="text-secondary-foreground">&gt;&gt; Stealth Mode:</strong>
+                <br />Operates as a background daemon with minimal CPU footprint.
               </p>
               <p>
-                <strong className="text-foreground">Buffer strategy:</strong> Writing every keystroke to disk is "noisy." Instead, they buffer 50-100 keys before saving.
+                <strong className="text-secondary-foreground">&gt;&gt; Buffer Logic:</strong>
+                <br />Local buffering minimizes disk I/O signature to evade behavioral heuristics.
               </p>
             </div>
           </div>
