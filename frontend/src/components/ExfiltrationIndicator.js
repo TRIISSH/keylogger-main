@@ -1,8 +1,4 @@
 import { motion } from 'framer-motion';
-import { Upload, Mail, Globe, HardDrive } from 'lucide-react';
-import { useState, useEffect } from 'react';
-
-import { motion } from 'framer-motion';
 import { Upload, Mail, Globe, HardDrive, Activity } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
