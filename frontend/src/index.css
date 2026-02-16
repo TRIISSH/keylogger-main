@@ -11,30 +11,34 @@
 
     --card: 240 10% 3.9%;
     --card-foreground: 0 0% 98%;
- 
+
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
- 
-    --primary: 153 100% 50%; /* Neon Green */
+
+    --primary: 153 100% 50%;
+    /* Neon Green */
     --primary-foreground: 240 5.9% 10%;
- 
-    --secondary: 279 100% 54%; /* Cyber Purple */
+
+    --secondary: 279 100% 54%;
+    /* Cyber Purple */
     --secondary-foreground: 0 0% 98%;
- 
+
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
- 
+
     --accent: 153 100% 50%;
     --accent-foreground: 240 5.9% 10%;
- 
-    --destructive: 0 100% 50%; /* Glitch Red */
+
+    --destructive: 0 100% 50%;
+    /* Glitch Red */
     --destructive-foreground: 0 0% 98%;
 
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 153 100% 50%;
- 
-    --radius: 0rem; /* Sharp corners for tech look */
+
+    --radius: 0rem;
+    /* Sharp corners for tech look */
   }
 
   .dark {
@@ -48,15 +52,21 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground font-primary overflow-x-hidden;
-    background-image: 
-      radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.05), transparent 25%), 
+    background-image:
+      radial-gradient(circle at 15% 50%, rgba(188, 19, 254, 0.05), transparent 25%),
       radial-gradient(circle at 85% 30%, rgba(0, 255, 157, 0.05), transparent 25%);
     font-feature-settings: "rlig" 1, "calt" 1;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-secondary tracking-wider;
   }
 }
@@ -65,7 +75,7 @@
   .text-glow {
     text-shadow: 0 0 10px rgba(0, 255, 157, 0.5), 0 0 20px rgba(0, 255, 157, 0.3);
   }
-  
+
   .text-glow-purple {
     text-shadow: 0 0 10px rgba(188, 19, 254, 0.5), 0 0 20px rgba(188, 19, 254, 0.3);
   }
@@ -73,7 +83,7 @@
   .box-glow {
     box-shadow: 0 0 15px rgba(0, 255, 157, 0.15);
   }
-  
+
   .glass {
     background: rgba(10, 10, 15, 0.7);
     backdrop-filter: blur(10px);
@@ -87,12 +97,12 @@
     border: 1px solid rgba(255, 255, 255, 0.05);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   }
-  
+
   .tech-border {
     position: relative;
     border: 1px solid rgba(0, 255, 157, 0.3);
   }
-  
+
   .tech-border::before {
     content: '';
     position: absolute;
@@ -103,7 +113,7 @@
     border-top: 2px solid #00ff9d;
     border-left: 2px solid #00ff9d;
   }
-  
+
   .tech-border::after {
     content: '';
     position: absolute;
@@ -114,6 +124,8 @@
     border-bottom: 2px solid #00ff9d;
     border-right: 2px solid #00ff9d;
   }
+
+
 }
 
 /* Scrollbar */

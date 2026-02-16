@@ -33,6 +33,7 @@ export default function Simulator() {
         description: 'Keystroke capture paused',
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isActive]);
 
   const handleStart = () => {
